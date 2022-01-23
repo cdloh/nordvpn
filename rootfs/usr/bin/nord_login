@@ -1,11 +1,15 @@
 #!/usr/bin/with-contenv bash
 
+if nordvpn account; then
+    echo "Were logged in moving on"
+fi
+
 [[ -z "${PASS}" ]] && [[ -f "${PASSFILE}" ]] && PASS="$(head -n 1 "${PASSFILE}")"
 [[ -z "${USER}" ]] && [[ -f "${USERFILE}" ]] && USER="$(head -n 1 "${USERFILE}")"
 
-nordvpn account || { nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
+ nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
   echo "Invalid Username or password."
   exit 1
-}}
+}
 
 exit 0
