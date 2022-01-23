@@ -40,7 +40,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -50,7 +50,7 @@ jobs:
           tags: |
             ${{ github.repository }}:${{ steps.git.outputs.name }}
             ghcr.io/${{ github.repository }}:${{ steps.git.outputs.name }}
-      
+
       - name: Push latest
         uses: docker/build-push-action@v2
         if: steps.git.outputs.tag == 'true'
@@ -61,10 +61,10 @@ jobs:
             ${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:latest
 
-      - name: Update repo description
-        uses: peter-evans/dockerhub-description@v2
-        if: steps.git.outputs.tag == 'true'
-        with:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${{ github.repository }}
+      # - name: Update repo description
+      #   uses: peter-evans/dockerhub-description@v2
+      #   if: steps.git.outputs.tag == 'true'
+      #   with:
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      #     repository: ${{ github.repository }}
