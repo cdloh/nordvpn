@@ -2,6 +2,7 @@
 
 if nordvpn account; then
     echo "Were logged in moving on"
+    exit 0
 fi
 
 [[ -z "${PASS}" ]] && [[ -f "${PASSFILE}" ]] && PASS="$(head -n 1 "${PASSFILE}")"
