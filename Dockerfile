@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 
 RUN apt-get update -y && \
-    apt-get install -y curl iputils-ping wireguard && \
+    apt-get install -y curl iputils-ping wireguard jq && \
     curl https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb --output /tmp/nordrepo.deb && \
     apt-get install -y /tmp/nordrepo.deb && \
     apt-get update -y && \
@@ -23,3 +23,6 @@ RUN apt-get update -y && \
 COPY /rootfs /
 ENV S6_CMD_WAIT_FOR_SERVICES=1
 CMD nord_login && nord_config && nord_connect && nord_watch
+
+HEALTHCHECK --interval=1m --timeout=10s \
+  CMD if [[ $( curl -x localhost:8118 https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ]] ; then exit 0; else exit 1; fi

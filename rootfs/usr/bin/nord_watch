@@ -2,15 +2,25 @@
 
 while true; do
   sleep "${CHECK_CONNECTION_INTERVAL:-300}"
-  if [[ ! $(curl -Is -m 30 -o /dev/null -w "%{http_code}" "${CHECK_CONNECTION_URL:-www.google.com}") =~ ^[23] ]]; then
-    echo "Unstable connection detected!"
-    nordvpn status
-    s6-svc -wR -t /var/run/s6/services/nordvpn
-    if ! nord_connect ; then
-      echo "Unable to connect"
-      exit 1
-    fi
+  LOAD=75
+  nordvpn_current_server=$(nordvpn status | grep server | cut -b 17-)
+  server_load=$(curl -s https://nordvpn.com/api/server/stats/$nordvpn_hostname | jq -r '.[]')
+
+  #Check serverload value is not empty
+  if [ -z "$server_load" ];then
+    echo "$(adddate) ERROR: No response from NordVPN API to get server load. This check to restart OpenVPN will be ignored."
+    continue
   fi
+
+  #Check serverload with expected load
+  if [ $server_load -gt $LOAD ]; then
+    echo "WARNING: Load on $nordvpn_hostname is to high! Current load is $server_load and expected is $LOAD"
+    echo "WARNING: OpenVPN will be restarted!"
+    nordvpn connect
+  else
+    echo "$(adddate) INFO: The current load of $server_load on $nordvpn_hostname is okay"
+  fi
+
 done
 
 exit 0
