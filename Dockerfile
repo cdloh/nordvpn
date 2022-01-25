@@ -25,4 +25,4 @@ ENV S6_CMD_WAIT_FOR_SERVICES=1
 CMD nord_login && nord_config && nord_connect && nord_watch
 
 HEALTHCHECK --interval=1m --timeout=10s \
-  CMD if [[ $( curl -x localhost:8118 https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ]] ; then exit 0; else exit 1; fi
+  CMD if [[ $( curl https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ]] ; then exit 0; else exit 1; fi
