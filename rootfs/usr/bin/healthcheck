@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bash
+
+if [[ $( curl https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ]] ; then exit 0; else exit 1; fi

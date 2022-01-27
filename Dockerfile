@@ -24,5 +24,5 @@ COPY /rootfs /
 ENV S6_CMD_WAIT_FOR_SERVICES=1
 CMD nord_login && nord_config && nord_connect && nord_watch
 
-HEALTHCHECK --interval=1m --timeout=10s \
-  CMD if [[ $( curl https://api.nordvpn.com/vpn/check/full | jq -r '.["status"]' ) = "Protected" ]] ; then exit 0; else exit 1; fi
+HEALTHCHECK --interval=2m --timeout=10s \
+  CMD /usr/bin/healthcheck
