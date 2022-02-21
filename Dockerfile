@@ -22,6 +22,7 @@ RUN apt-get update -y && \
 
 COPY /rootfs /
 ENV S6_CMD_WAIT_FOR_SERVICES=1
+ENV PATH=/usr/bin:$PATH
 CMD sleep 1 && nord_login && nord_config && nord_connect && nord_migrate && nord_watch
 
 HEALTHCHECK --interval=2m --timeout=10s \
