@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 
 RUN apt-get update -y && \
-    apt-get install -y curl iptables iproute2 iputils-ping wireguard jq && \
+    apt-get install -y curl iptables iproute2 iputils-ping libc6 wireguard jq && \
     curl https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb --output /tmp/nordrepo.deb && \
     apt-get install -y /tmp/nordrepo.deb && \
     apt-get update -y && \
