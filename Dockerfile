@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
+FROM ghcr.io/k8s-at-home/ubuntu-jammy:latest
 LABEL maintainer="Julio Gutierrez julio.guti+nordvpn@pm.me"
 
 ARG NORDVPN_VERSION=3.12.4
@@ -21,7 +21,10 @@ RUN apt-get update -y && \
 		/var/tmp/*
 
 COPY /rootfs /
-ENV S6_CMD_WAIT_FOR_SERVICES=1
+
+RUN chown root:root /usr/bin/nord* && \
+    chmod 0755 /usr/bin/nord*
+
 ENV PATH=/usr/bin:$PATH
 CMD sleep 1 && nord_login && nord_config && nord_connect && nord_watch
 

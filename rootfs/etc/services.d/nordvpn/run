@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [[ ! -d /run/nordvpn ]]; then
-  mkdir -m 0770 /run/nordvpn
-fi
-
-s6-notifyoncheck /usr/sbin/nordvpnd
