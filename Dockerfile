@@ -4,6 +4,7 @@ LABEL maintainer="Julio Gutierrez julio.guti+nordvpn@pm.me"
 ARG NORDVPN_VERSION=3.12.4
 ARG DEBIAN_FRONTEND=noninteractive
 
+USER root
 
 RUN apt-get update -y && \
     apt-get install -y curl iputils-ping libc6 wireguard jq && \
