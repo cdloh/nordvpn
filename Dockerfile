@@ -27,7 +27,7 @@ RUN chown root:root /usr/bin/nord* && \
     chmod 0755 /usr/bin/nord*
 
 ENV PATH=/usr/bin:$PATH
-CMD sleep 30 && env && nord_login && nord_config && nord_connect && nord_watch
+CMD sleep 10 && env && nord_login && nord_config && nord_connect && nord_watch
 
 HEALTHCHECK --interval=2m --timeout=10s \
   CMD /usr/bin/healthcheck

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Background the actual VPN softtware
+nordvpnd &
+
+sleep 5
+
 if nordvpn account; then
     echo "Were logged in moving on"
     exit 0
