@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Background the actual VPN softtware
+mkdir /run/nordvpn
 nordvpnd &
 
 sleep 5
