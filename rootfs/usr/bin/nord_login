@@ -20,6 +20,7 @@ echo $USERFILE
 
 nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
   echo "Invalid Username or password."
+  sleep infinity
   exit 1
 }
 
