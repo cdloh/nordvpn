@@ -8,7 +8,11 @@ fi
 [[ -z "${PASS}" ]] && [[ -f "${PASSFILE}" ]] && PASS="$(head -n 1 "${PASSFILE}")"
 [[ -z "${USER}" ]] && [[ -f "${USERFILE}" ]] && USER="$(head -n 1 "${USERFILE}")"
 
- nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
+echo $PASSFILE
+echo $USERFILE
+
+
+nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
   echo "Invalid Username or password."
   exit 1
 }
