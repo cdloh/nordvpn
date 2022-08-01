@@ -4,7 +4,7 @@ i=0
 while [ $i -le 31 ]
 do
 
-  if [[ -f /run/nordvpn/nordvpnd.sock ]]
+  if [[ -S /run/nordvpn/nordvpnd.sock ]]
   then
     echo "VPN started!"
     break
