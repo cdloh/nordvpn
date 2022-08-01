@@ -1,9 +1,17 @@
 #!/bin/bash
 
-# Background the actual VPN softtware
-nordvpnd &
+i=0
+while [ $i -le 31 ]
+do
 
-sleep 30
+  if [[ -f /run/nordvpn/nordvpnd.sock ]]
+  then
+    echo "VPN started!"
+    break
+  fi
+  sleep 10
+done
+
 
 if nordvpn account; then
     echo "Were logged in moving on"

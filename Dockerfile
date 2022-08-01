@@ -29,7 +29,7 @@ RUN chown root:root /usr/bin/nord* && \
 RUN mkdir -p /run/nordvpn
 
 ENV PATH=/usr/bin:$PATH
-CMD sleep 10 && env && nord_login && nord_config && nord_connect && nord_watch
+CMD sleep 30 && nord_login && nord_config && nord_connect && nord_watch
 
 HEALTHCHECK --interval=2m --timeout=10s \
   CMD /usr/bin/healthcheck
