@@ -3,7 +3,7 @@
 # Background the actual VPN softtware
 nordvpnd &
 
-sleep 5
+sleep 30
 
 if nordvpn account; then
     echo "Were logged in moving on"
@@ -19,7 +19,6 @@ echo $USERFILE
 
 nordvpn login --legacy --username "${USER}" --password "${PASS}" || {
   echo "Invalid Username or password."
-  sleep infinity
   exit 1
 }
 
