@@ -1,7 +1,7 @@
 FROM ghcr.io/k8s-at-home/ubuntu-focal:latest
 LABEL maintainer="Julio Gutierrez julio.guti+nordvpn@pm.me"
 
-ARG NORDVPN_VERSION=3.12.4
+ARG NORDVPN_VERSION=3.14.2
 ARG DEBIAN_FRONTEND=noninteractive
 
 USER root
